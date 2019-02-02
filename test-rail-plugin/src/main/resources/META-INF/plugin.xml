@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>test-rail-plugin</id>
+    <name>Test Rail exporter</name>
+    <vendor email="spirogov@whirl.sg" url="http://whirl.com">Whirl</vendor>
+
+    <description>This plugin is used for exporting test cases from idea source code to TestRail</description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <projectConfigurable groupId="tools" displayName="TestRail exporter plugin" id="preferences.TestRailConfigurable" instance="com.qaguild.plugin.TestRailConfigurable"/>
+        <projectService serviceImplementation="com.qaguild.plugin.Settings"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="TestRail.Action" class="com.qaguild.plugin.TestRailAction" text="Export to TestRail">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>

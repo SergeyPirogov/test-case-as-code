@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":test-rail")
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+}
+
+task syncTestRail(type:Test) {
+        systemProperty("project.name", "#1 Demo")
+        systemProperty("suite.name", "Demo suite")
+        println("Starting to sync TestRail...")
+        useTestNG(){
+                options {
+                        listeners << "com.qaguild.trail.TestRailCaseGeneratorListener"
+                }
+        }
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+
+    outputs.upToDateWhen { false }
+}
+
+test {
+    systemProperty("project.name", "#1 Demo")
+    systemProperty("suite.name", "Demo suite")
+    systemProperties System.getProperties()
+
+    useTestNG(){
+        options {
+             listeners << "com.qaguild.trail.TestRailTestRunListener"
+        }
+    }
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+
+    outputs.upToDateWhen { false }
+}

@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version '2.0'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'com.codepine.api', name: 'testrail-api-java-client', version: '2.0.1'
+    compile group: 'org.testng', name: 'testng', version: '6.14.3'
+}
