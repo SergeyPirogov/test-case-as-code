@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class TestLogin {
 
     @Test
-    @JiraStory(id = "Jira-1", title = "Super story name")
+    @JiraStory(id = "Jira-1", title = "User login with login and password")
     @CaseId(10)
     public void userCanLoginWithValidCredentials() {
 //     open(Login.page)
@@ -20,9 +20,10 @@ public class TestLogin {
 
     @Test
     @Manual({
-            @Case(title = "Manual checks for login")
+            @Case(title = "Inputted password is masked by bullets"),
+            @Case(title = "Masked password can not be copied")
     })
-    @JiraStory(id = "Jira-1", title = "Super story name")
+    @JiraStory(id = "Jira-1", title = "User login with login and password")
     @CaseId(11)
     public void userCanNotLoginWithInValidCredentials() {
 //     open(Login.page)
