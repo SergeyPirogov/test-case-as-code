@@ -3,6 +3,8 @@ package com.example.test;
 import com.qaguild.trail.annotations.*;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.fail;
+
 @Epic("Login")
 public class TestLogin {
 
@@ -34,4 +36,9 @@ public class TestLogin {
 //     assert(at(MainPage.class)).userName.shouldBe("demo");
     }
 
+    @Test
+    @JiraStory(id = "Jira-1", title = "User login with login and password")
+    public void userShouldSeeTimerAfter3WrongLoginAttempts(){
+        fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
+    }
 }
