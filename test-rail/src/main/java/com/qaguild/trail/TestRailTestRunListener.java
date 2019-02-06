@@ -7,7 +7,11 @@ import com.qaguild.trail.annotations.Case;
 import com.qaguild.trail.annotations.Manual;
 
 import java.lang.reflect.Method;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TestRailTestRunListener implements IMethodInterceptor, ITestListener {
@@ -39,7 +43,7 @@ public class TestRailTestRunListener implements IMethodInterceptor, ITestListene
         }
 
         Run testRun = new Run();
-        testRun.setName("Smoke test");
+        testRun.setName(formatDate(Instant.now()));
         testRun.setIncludeAll(false);
         testRun.setCaseIds(caseIds);
         testRun.setSuiteId(suiteId);
@@ -47,6 +51,13 @@ public class TestRailTestRunListener implements IMethodInterceptor, ITestListene
         testRunId = testRail.saveTestRun(projectId, testRun).getId();
 
         return methods;
+    }
+
+    private String formatDate(Instant instant){
+        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        return DATE_TIME_FORMATTER.format(instant);
     }
 
     @Override
