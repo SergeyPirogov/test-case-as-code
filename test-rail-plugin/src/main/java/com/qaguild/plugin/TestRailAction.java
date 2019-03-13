@@ -1,9 +1,5 @@
 package com.qaguild.plugin;
 
-import com.intellij.codeInsight.AnnotationUtil;
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -11,11 +7,16 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.qaguild.plugin.model.TestCase;
+import com.qaguild.plugin.util.NotificationUtils;
+import com.qaguild.plugin.util.PsiMethodUtils;
 import com.qaguild.plugin.util.PsiUtils;
+
+import java.util.Map;
+
+import static com.qaguild.plugin.Annotations.MANUAL_CASE_ANNOTATION;
 
 public class TestRailAction extends AnAction {
 
@@ -29,49 +30,26 @@ public class TestRailAction extends AnAction {
 
             TestRailApiWrapper testRail = new TestRailApiWrapper(Settings.getInstance(method.getProject()));
 
-            PsiClass testClass = (PsiClass) method.getParent();
-
-            PsiAnnotation jiraAnnotation = method.getAnnotation(Annotations.JIRA_STORY_ANNOTATION);
-            PsiAnnotation epicAnnotation = testClass.getAnnotation(Annotations.EPIC_ANNOTATION);
-
-            String epicName = AnnotationUtil.getDeclaredStringAttributeValue(epicAnnotation, "value");
-
-            String jiraId = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "id");
-            String jiraTitle = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "title");
-
-            String storyName = jiraId + " - " + jiraTitle;
+            String storyName = PsiMethodUtils.getStoryName(method);
+            String epicName = PsiMethodUtils.getEpicName(method);
 
             int sectionId = testRail.createSections(epicName, storyName);
 
-            TestCase automatedCheck = testRail.createAutomatedCheck(sectionId, method);
+            if (method.hasAnnotation(MANUAL_CASE_ANNOTATION)) {
+                Map<PsiAnnotation, TestCase> testCases = PsiMethodUtils.getManualTestCases(method);
 
-            if (method.hasAnnotation(Annotations.MANUAL_CASE_ANNOTATION)) {
-                testRail.createManualCheck(sectionId, method);
+                testCases.forEach((key, value) -> {
+                    Integer id = testRail.saveTestCase(sectionId, value).getId();
+                    PsiMethodUtils.createCaseAnnotation(id, method, key);
+
+                    NotificationUtils.notify(value.getTitle());
+                });
             }
 
-            createCaseIdAnnotation(automatedCheck, method);
+            TestCase automatedCheck = testRail.createAutomatedCheck(sectionId, method);
+            PsiMethodUtils.createCaseIdAnnotation(automatedCheck, method);
 
-            Notifications.Bus.notify(new Notification("TestRail.Action",
-                    "Export to TestTail",
-                    "Finished exporting [" + method.getName() + "]",
-                    NotificationType.INFORMATION));
+            NotificationUtils.notify(method.getName());
         }
-    }
-
-    private void createCaseIdAnnotation(TestCase testCase, PsiMethod method) {
-        final PsiAnnotation annotation = PsiUtils.createAnnotation(getCaseAnnotationText(testCase.getId()), method);
-        final Project project = method.getProject();
-
-        PsiAnnotation jiraAnnotation = method.getAnnotation(Annotations.JIRA_STORY_ANNOTATION);
-
-        CommandProcessor.getInstance().executeCommand(project, () -> ApplicationManager.getApplication().runWriteAction(() -> {
-            PsiUtils.addImport(method.getContainingFile(), Annotations.CASE_ID_ANNOTATION);
-
-            method.getModifierList().addAfter(annotation, jiraAnnotation);
-        }), "Insert TestRail id", null);
-    }
-
-    private String getCaseAnnotationText(int id) {
-        return String.format("@%s(%s)", Annotations.CASE_ID_ANNOTATION, id);
     }
 }

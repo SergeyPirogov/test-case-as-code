@@ -51,3 +51,7 @@ test {
 
     outputs.upToDateWhen { false }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "5.1"
+}
