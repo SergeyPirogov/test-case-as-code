@@ -96,8 +96,7 @@ public class PsiMethodUtils {
         final Project project = method.getProject();
 
         CommandProcessor.getInstance().executeCommand(project, () -> ApplicationManager.getApplication().runWriteAction(() -> {
-            method.getModifierList().addAfter(annotation, oldAnnotation);
-            oldAnnotation.delete();
+            oldAnnotation.replace(annotation);
         }), "Insert TestRail id", null);
     }
 
