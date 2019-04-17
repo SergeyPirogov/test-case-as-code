@@ -11,15 +11,14 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TestRailTestRunListener implements IMethodInterceptor, ITestListener {
 
     private TestRailClient testRail = new TestRailClient();
 
-    private int projectId = testRail.getProjectByName(System.getProperty("project.name","")).getId();
-    private int suiteId = testRail.getSuite(projectId, System.getProperty("suite.name", "")).getId();
+    private int projectId = testRail.getProjectByName(Config.getTestRailProjectName()).getId();
+    private int suiteId = testRail.getSuite(projectId, Config.getTestRailSuiteName()).getId();
     private int testRunId = 0;
 
 
