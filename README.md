@@ -1,7 +1,7 @@
 # Test Cases as a Code
 
 ## Description
-This plugin is used for exporting test cases from Intellij IDEA source code to [TestRail](https://www.gurock.com/testrail)
+This plugin is used for exporting test cases from [Intellij IDEA](https://www.jetbrains.com/idea/) source code to [TestRail](https://www.gurock.com/testrail)
 
 ## Installation
 1. Build the project: `./gradlew clean build -x test`
