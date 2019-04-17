@@ -11,3 +11,4 @@ select `test-rail-plugin/build/distributions/test-rail-plugin.zip`
 ## Configuration
 You must provide your TestRail credentials. 
 In order to do that please open `test-rail/src/main/resources/config.properties` and fill in necessary properties.
+It's required to configure the plugin settings as well: `Preferences -> Tools -> TestRail exporter plugin`
