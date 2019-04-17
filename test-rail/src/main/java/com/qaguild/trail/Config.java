@@ -5,9 +5,9 @@ import java.util.Properties;
 
 public class Config {
 
-  private static Properties properties = init();
+  private static Properties properties = initConfigProperties();
 
-  private static Properties init() {
+  private static Properties initConfigProperties() {
     Properties properties = new Properties();
     try {
       properties.load(Config.class.getClassLoader().getResourceAsStream("config.properties"));
