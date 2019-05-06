@@ -1,7 +1,4 @@
-package com.qaguild.plugin.annotations;
-
-
-import com.qaguild.plugin.enums.State;
+package com.qaguild.annotations.trail;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,9 +11,7 @@ public @interface Case {
 
     int automationType() default 0;
 
-    State state() default State.READY_FOR_TESTING;
-
     int id() default 0;
 
-    String ac();
+    String ac() default "";
 }

@@ -3,4 +3,5 @@ include 'test-rail-plugin'
 include 'test-rail'
 include 'examples'
 include 'idea-plugin-example'
+include 'common'
 

@@ -1,4 +1,4 @@
-package com.qaguild.trail.annotations;
+package com.qaguild.annotations.trail;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,4 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface CaseId {
-    int value();
-}
+public @interface Exploratory { }
