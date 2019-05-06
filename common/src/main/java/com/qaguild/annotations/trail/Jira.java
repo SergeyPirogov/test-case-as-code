@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 public @interface Jira {
     String value();
     String title() default "";
+    Case[] manual() default {};
 }

@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(":common")
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
 }
 

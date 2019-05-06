@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 public @interface Case {
     String title();
 
-    int automationType() default 0;
-
     int id() default 0;
+
+    int type() default 0;
 
     String ac() default "";
 }

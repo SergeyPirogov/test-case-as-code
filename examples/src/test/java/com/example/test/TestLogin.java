@@ -21,11 +21,10 @@ public class TestLogin {
     }
 
     @Test
-    @Manual({
+    @Jira(value = "Jira-1", title = "User login with login and password", manual = {
             @Case(title = "Inputted password is masked by bullets"),
             @Case(title = "Masked password can not be copied")
     })
-    @Jira(value = "Jira-1", title = "User login with login and password")
     @CaseId(11)
     public void userCanNotLoginWithInValidCredentials() {
 //     open(Login.page)
@@ -38,7 +37,7 @@ public class TestLogin {
 
     @Test
     @Jira(value = "Jira-1", title = "User login with login and password")
-    public void userShouldSeeTimerAfter3WrongLoginAttempts(){
+    public void userShouldSeeTimerAfter3WrongLoginAttempts() {
         fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
     }
 }
