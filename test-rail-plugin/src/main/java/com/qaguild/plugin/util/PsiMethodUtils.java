@@ -6,7 +6,7 @@ import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.qaguild.plugin.Annotations;
-import com.qaguild.plugin.enums.State;
+import com.qaguild.enums.State;
 import com.qaguild.plugin.model.TestCase;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

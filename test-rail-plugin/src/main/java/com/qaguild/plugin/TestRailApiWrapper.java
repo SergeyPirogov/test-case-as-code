@@ -4,16 +4,13 @@ import com.intellij.codeInsight.AnnotationUtil;
 import com.intellij.psi.*;
 import com.qaguild.plugin.api.TestRailClient;
 import com.qaguild.plugin.util.PsiMethodUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import com.qaguild.plugin.api.TestRailClientBuilder;
-import com.qaguild.plugin.enums.State;
+import com.qaguild.enums.State;
 import com.qaguild.plugin.model.Section;
 import com.qaguild.plugin.model.TestCase;
 
 import java.util.*;
 
-import static com.qaguild.plugin.Annotations.AC_ANNOTATION;
 import static com.qaguild.plugin.Annotations.CASE_ID_ANNOTATION;
 import static com.qaguild.plugin.util.PsiMethodUtils.getTestCaseTitle;
 

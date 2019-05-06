@@ -1,4 +1,4 @@
-package com.qaguild.plugin.enums;
+package com.qaguild.enums;
 
 public enum State {
 
