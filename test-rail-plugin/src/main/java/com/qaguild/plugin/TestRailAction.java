@@ -4,12 +4,15 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.psi.PsiAnnotation;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.qaguild.plugin.model.TestCase;
 import com.qaguild.plugin.util.NotificationUtils;
 import com.qaguild.plugin.util.PsiMethodUtils;
+import org.apache.commons.lang3.AnnotationUtils;
 
+import java.util.List;
 import java.util.Map;
 
 public class TestRailAction extends AnAction {
@@ -22,10 +25,13 @@ public class TestRailAction extends AnAction {
 
             TestRailApiWrapper testRail = new TestRailApiWrapper(Settings.getInstance(method.getProject()));
 
-            String storyName = PsiMethodUtils.getStoryName(method);
-            String epicName = PsiMethodUtils.getEpicName(method);
+            List<String> classSections = PsiMethodUtils.getClassSections(method.getContainingClass());
 
-            int sectionId = testRail.createSections(epicName, storyName);
+            testRail.createSections(classSections);
+
+            List<String> methodSections = PsiMethodUtils.getMethodSections(method);
+
+            int sectionId = testRail.createSections(methodSections);
 
             Map<PsiAnnotation, TestCase> testCases = PsiMethodUtils.getManualTestCases(method);
 

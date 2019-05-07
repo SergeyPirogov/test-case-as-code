@@ -126,4 +126,31 @@ public class PsiMethodUtils {
     public static String getCaseAnnotationText(int id) {
         return String.format("@%s(%s)", Annotations.CASE_ID_ANNOTATION, id);
     }
+
+    public static List<String> getClassSections(PsiClass psiClass) {
+        PsiAnnotation annotation = psiClass.getAnnotation(EPIC_ANNOTATION);
+
+        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("stories");
+
+        PsiAnnotationMemberValue[] initializers = Objects.requireNonNull(value).getInitializers();
+
+        List<String> sections = new ArrayList<>();
+
+        for (PsiAnnotationMemberValue initializer : initializers) {
+            PsiAnnotation storyAnnotation = (PsiAnnotation) initializer;
+
+            String id = AnnotationUtil.getDeclaredStringAttributeValue(storyAnnotation, "id");
+            String title = AnnotationUtil.getDeclaredStringAttributeValue(storyAnnotation, "title");
+
+            sections.add(id + ": " + title);
+        }
+        return sections;
+    }
+
+    public static List<String> getMethodSections(PsiMethod psiMethod) {
+        String storyName = PsiMethodUtils.getStoryName(psiMethod);
+        String epicName = PsiMethodUtils.getEpicName(psiMethod);
+
+        return Arrays.asList(epicName, storyName);
+    }
 }

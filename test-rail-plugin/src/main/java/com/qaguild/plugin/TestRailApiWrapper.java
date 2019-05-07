@@ -25,13 +25,13 @@ public class TestRailApiWrapper {
                 .build();
     }
 
-    public int createSections(String... sections) {
+    public int createSections(List<String> sections) {
         int parentSectionId = -1;
-        for (int i = 0; i < sections.length; i++) {
+        for (int i = 0; i < sections.size(); i++) {
             if (i == 0) {
-                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), sections[0]).getId();
+                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), sections.get(0)).getId();
             } else {
-                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), parentSectionId, sections[i]).getId();
+                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), parentSectionId, sections.get(i)).getId();
             }
         }
         return parentSectionId;
