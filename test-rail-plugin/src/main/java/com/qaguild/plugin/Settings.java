@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 @State(
         name = "Settings",
-        storages = { @Storage("settings.xml") }
+        storages = { @Storage("trail/settings.xml") }
 )
 public class Settings implements PersistentStateComponent<Settings> {
 

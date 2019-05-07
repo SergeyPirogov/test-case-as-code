@@ -20,7 +20,7 @@ public class PsiMethodUtils {
     public static String getStoryName(PsiMethod method) {
         PsiAnnotation jiraAnnotation = method.getAnnotation(JIRA_STORY_ANNOTATION);
 
-        String jiraId = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "id");
+        String jiraId = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "value");
         String jiraTitle = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "title");
 
         return jiraId + " - " + jiraTitle;

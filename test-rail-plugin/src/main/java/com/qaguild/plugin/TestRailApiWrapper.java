@@ -29,7 +29,7 @@ public class TestRailApiWrapper {
         int parentSectionId = -1;
         for (int i = 0; i < sections.length; i++) {
             if (i == 0) {
-                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), sections[i]).getId();
+                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), sections[0]).getId();
             } else {
                 parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), parentSectionId, sections[i]).getId();
             }
