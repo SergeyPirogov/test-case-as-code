@@ -1,15 +1,16 @@
 package com.qaguild.enums;
 
-public enum State {
+public enum CaseState {
 
     DRAFT(1),
     READY_FOR_TESTING(2),
     AUTOMATED(3),
-    READY_FOR_AUTOMATION(4);
+    READY_FOR_AUTOMATION(4),
+    MANUAL(5);
 
     int value;
 
-    State(int value) {
+    CaseState(int value) {
         this.value = value;
     }
 

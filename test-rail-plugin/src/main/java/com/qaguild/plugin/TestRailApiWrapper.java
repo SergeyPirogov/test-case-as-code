@@ -1,15 +1,15 @@
 package com.qaguild.plugin;
 
 import com.intellij.codeInsight.AnnotationUtil;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiMethod;
+import com.qaguild.enums.CaseState;
 import com.qaguild.plugin.api.TestRailClient;
-import com.qaguild.plugin.util.PsiMethodUtils;
 import com.qaguild.plugin.api.TestRailClientBuilder;
-import com.qaguild.enums.State;
 import com.qaguild.plugin.model.Section;
 import com.qaguild.plugin.model.TestCase;
+import com.qaguild.plugin.util.PsiMethodUtils;
 
-import java.util.*;
+import java.util.List;
 
 import static com.qaguild.plugin.Annotations.CASE_ID_ANNOTATION;
 import static com.qaguild.plugin.util.PsiMethodUtils.getTestCaseTitle;
@@ -85,7 +85,7 @@ public class TestRailApiWrapper {
     public TestCase createAutomatedCheck(int sectionId, PsiMethod testMethod) {
         TestCase testCase = new TestCase();
         testCase.setTitle(getTestCaseTitle(testMethod.getName()));
-        testCase.setCustomState(State.AUTOMATED.getValue());
+        testCase.setCustomState(CaseState.AUTOMATED.getValue());
         testCase.setCustomAcceptanceCriteria(PsiMethodUtils.getAcceptanceCriteria(testMethod));
         testCase.setRefs(PsiMethodUtils.getJiraRef(testMethod));
 

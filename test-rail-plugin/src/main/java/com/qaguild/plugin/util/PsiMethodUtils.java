@@ -5,8 +5,8 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import com.qaguild.enums.CaseState;
 import com.qaguild.plugin.Annotations;
-import com.qaguild.enums.State;
 import com.qaguild.plugin.model.TestCase;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +45,7 @@ public class PsiMethodUtils {
 
             TestCase testCase = new TestCase();
             testCase.setTitle(getTestCaseTitle(title));
-            testCase.setCustomState(State.READY_FOR_AUTOMATION.getValue());
+            testCase.setCustomState(CaseState.MANUAL.getValue());
             testCase.setCustomAcceptanceCriteria(ac);
             testCase.setRefs(jiraRef);
 
@@ -69,11 +69,11 @@ public class PsiMethodUtils {
     }
 
     private static PsiAnnotationMemberValue[] getAnnotationBody(PsiMethod testMethod) {
-        PsiAnnotation annotation = testMethod.getAnnotation(MANUAL_CASE_ANNOTATION);
+        PsiAnnotation annotation = testMethod.getAnnotation(JIRA_STORY_ANNOTATION);
 
-        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) annotation.findDeclaredAttributeValue("value");
+        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("value");
 
-        return value.getInitializers();
+        return Objects.requireNonNull(value).getInitializers();
     }
 
     public static String getJiraRef(PsiMethod testMethod) {

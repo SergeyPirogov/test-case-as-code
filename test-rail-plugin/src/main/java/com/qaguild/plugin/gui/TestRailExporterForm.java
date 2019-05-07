@@ -17,7 +17,7 @@ public class TestRailExporterForm {
     public TestRailExporterForm() {
     }
 
-    public void createUI(Project project){
+    public void createUI(Project project) {
         settings = Settings.getInstance(project);
         usernameTextField.setText(settings.getUserName());
         passwordPasswordField.setText(settings.getPassword());
@@ -45,11 +45,9 @@ public class TestRailExporterForm {
     }
 
     public boolean isModified() {
-        boolean modified = false;
-        modified |= !usernameTextField.getText().equals(settings.getUserName());
-        modified |= !passwordPasswordField.getText().equals(settings.getPassword());
-        modified |= !url.getText().equals(settings.getApiUrl());
-        return modified;
+        return !usernameTextField.getText().equals(settings.getUserName()) ||
+                !passwordPasswordField.getText().equals(settings.getPassword()) ||
+                !url.getText().equals(settings.getApiUrl());
     }
 
     private void createUIComponents() {

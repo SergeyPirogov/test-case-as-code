@@ -21,7 +21,7 @@ public class TestLogin {
     }
 
     @Test
-    @Jira(value = "Jira-1", title = "User login with login and password", manual = {
+    @Jira(value = "Jira-1", title = "User login with login and password", cases = {
             @Case(title = "Inputted password is masked by bullets"),
             @Case(title = "Masked password can not be copied")
     })
