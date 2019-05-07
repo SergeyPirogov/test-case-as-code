@@ -39,9 +39,9 @@ public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1", manual = {
-            @Case(id = 260866, title = "this is test")
+            @Case(id = 260873, title = "this is test")
     })
-    @CaseId(260865)
+    @CaseId(260874)
     public void userShouldSeeTimerAfter3WrongLoginAttempts() {
         fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
     }
