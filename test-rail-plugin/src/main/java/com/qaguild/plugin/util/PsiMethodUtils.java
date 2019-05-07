@@ -77,7 +77,11 @@ public class PsiMethodUtils {
 
         PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("manual");
 
-        return Objects.requireNonNull(value).getInitializers();
+        if (value == null) {
+            return new PsiAnnotationMemberValue[0];
+        }
+
+        return value.getInitializers();
     }
 
     public static String getJiraRef(PsiMethod testMethod) {
@@ -107,6 +111,11 @@ public class PsiMethodUtils {
     public static String getCaseAnnotationText(int testCaseId, PsiAnnotation caseAnnotation) {
         String title = AnnotationUtil.getDeclaredStringAttributeValue(caseAnnotation, "title");
         String ac = AnnotationUtil.getDeclaredStringAttributeValue(caseAnnotation, "ac");
+
+        if (ac == null) {
+            return String.format("@%s(id=%s, title=\"%s\")", "Case", testCaseId, title);
+        }
+
         return String.format("@%s(id=%s, title=\"%s\", ac=\"%s\")", "Case", testCaseId, title, ac);
     }
 
@@ -118,7 +127,7 @@ public class PsiMethodUtils {
 
         CommandProcessor.getInstance().executeCommand(project, () -> ApplicationManager.getApplication().runWriteAction(() -> {
             PsiUtils.addImport(method.getContainingFile(), Annotations.CASE_ID_ANNOTATION);
-
+            PsiMethodUtils.deleteOldAnnotation(method);
             method.getModifierList().addAfter(annotation, jiraAnnotation);
         }), "Insert TestRail id", null);
     }
@@ -130,11 +139,17 @@ public class PsiMethodUtils {
     public static List<String> getClassSections(PsiClass psiClass) {
         PsiAnnotation annotation = psiClass.getAnnotation(EPIC_ANNOTATION);
 
-        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("stories");
+        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) annotation.findDeclaredAttributeValue("stories");
+
+        if (value == null) {
+            return Collections.emptyList();
+        }
 
         PsiAnnotationMemberValue[] initializers = Objects.requireNonNull(value).getInitializers();
 
         List<String> sections = new ArrayList<>();
+
+        sections.add(AnnotationUtil.getDeclaredStringAttributeValue(annotation, "value"));
 
         for (PsiAnnotationMemberValue initializer : initializers) {
             PsiAnnotation storyAnnotation = (PsiAnnotation) initializer;
@@ -152,5 +167,12 @@ public class PsiMethodUtils {
         String epicName = PsiMethodUtils.getEpicName(psiMethod);
 
         return Arrays.asList(epicName, storyName);
+    }
+
+    private static void deleteOldAnnotation(PsiMethod method) {
+        PsiAnnotation caseIdAnnotation = method.getAnnotation(CASE_ID_ANNOTATION);
+        if (caseIdAnnotation != null) {
+            caseIdAnnotation.delete();
+        }
     }
 }

@@ -5,12 +5,14 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.fail;
 
-@Epic("Login")
+@Epic(value = "Login", stories = {
+        @Story(id = "Jira-1", title = "User is able to login to the system")
+})
 public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1")
-    @CaseId(10)
+    @CaseId(260869)
     public void userCanLoginWithValidCredentials() {
 //     open(Login.page)
 //         .enterUsername("demo")
@@ -22,10 +24,10 @@ public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1", manual = {
-            @Case(title = "Inputted password is masked by bullets"),
-            @Case(title = "Masked password can not be copied")
+            @Case(id = 260871, title = "Inputted password is masked by bullets"),
+            @Case(id = 260870, title = "Masked password can not be copied")
     })
-    @CaseId(11)
+    @CaseId(260872)
     public void userCanNotLoginWithInValidCredentials() {
 //     open(Login.page)
 //         .enterUsername("demo")
@@ -36,7 +38,10 @@ public class TestLogin {
     }
 
     @Test
-    @Jira(id = "Jira-1")
+    @Jira(id = "Jira-1", manual = {
+            @Case(id = 260866, title = "this is test")
+    })
+    @CaseId(260865)
     public void userShouldSeeTimerAfter3WrongLoginAttempts() {
         fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
     }
