@@ -20,10 +20,14 @@ public class PsiMethodUtils {
     public static String getStoryName(PsiMethod method) {
         PsiAnnotation jiraAnnotation = method.getAnnotation(JIRA_STORY_ANNOTATION);
 
-        String jiraId = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "value");
+        String jiraId = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "id");
         String jiraTitle = AnnotationUtil.getDeclaredStringAttributeValue(jiraAnnotation, "title");
 
-        return jiraId + " - " + jiraTitle;
+        if (StringUtils.isBlank(jiraTitle)) {
+            return jiraId;
+        }
+
+        return jiraId + ": " + jiraTitle;
     }
 
     public static String getEpicName(PsiMethod method) {
@@ -36,7 +40,7 @@ public class PsiMethodUtils {
         Map<PsiAnnotation, TestCase> testCases = new HashMap<>();
 
         String jiraRef = PsiMethodUtils.getJiraRef(testMethod);
-        PsiAnnotationMemberValue[] cases = getAnnotationBody(testMethod);
+        PsiAnnotationMemberValue[] cases = getManualCases(testMethod);
 
         for (PsiAnnotationMemberValue manualCase : cases) {
             PsiAnnotation caseAnnotation = (PsiAnnotation) manualCase;
@@ -68,10 +72,10 @@ public class PsiMethodUtils {
         return StringUtils.join(stringList, " ");
     }
 
-    private static PsiAnnotationMemberValue[] getAnnotationBody(PsiMethod testMethod) {
+    private static PsiAnnotationMemberValue[] getManualCases(PsiMethod testMethod) {
         PsiAnnotation annotation = testMethod.getAnnotation(JIRA_STORY_ANNOTATION);
 
-        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("value");
+        PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("manual");
 
         return Objects.requireNonNull(value).getInitializers();
     }

@@ -9,7 +9,7 @@ import static org.testng.Assert.fail;
 public class TestLogin {
 
     @Test
-    @Jira("Jira-1")
+    @Jira(id = "Jira-1")
     @CaseId(10)
     public void userCanLoginWithValidCredentials() {
 //     open(Login.page)
@@ -21,7 +21,7 @@ public class TestLogin {
     }
 
     @Test
-    @Jira(value = "Jira-1", title = "User login with login and password", cases = {
+    @Jira(id = "Jira-1", manual = {
             @Case(title = "Inputted password is masked by bullets"),
             @Case(title = "Masked password can not be copied")
     })
@@ -36,7 +36,7 @@ public class TestLogin {
     }
 
     @Test
-    @Jira(value = "Jira-1", title = "User login with login and password")
+    @Jira(id = "Jira-1")
     public void userShouldSeeTimerAfter3WrongLoginAttempts() {
         fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
     }

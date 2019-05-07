@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Repeatable(Jiras.class)
 public @interface Jira {
-    String value();
+    String id();
     String title() default "";
-    Case[] cases() default {};
+    Case[] manual() default {};
 }

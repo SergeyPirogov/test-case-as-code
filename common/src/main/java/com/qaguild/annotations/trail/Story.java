@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Epic {
-    String value();
-    Story[] stories() default {};
+public @interface Story {
+    String id();
+    String title();
 }

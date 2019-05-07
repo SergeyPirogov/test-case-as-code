@@ -73,7 +73,7 @@ public class TestRailApiWrapper {
     public Section getSection(int projectId, int suiteId, String name) {
         return testRailClient.getSections(projectId, suiteId)
                 .stream()
-                .filter(it -> it.getName().equalsIgnoreCase(name))
+                .filter(it -> it.getName().contains(name))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("No such section"));
     }
