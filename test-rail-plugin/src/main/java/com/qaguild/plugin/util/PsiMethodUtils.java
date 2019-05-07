@@ -75,6 +75,10 @@ public class PsiMethodUtils {
     private static PsiAnnotationMemberValue[] getManualCases(PsiMethod testMethod) {
         PsiAnnotation annotation = testMethod.getAnnotation(JIRA_STORY_ANNOTATION);
 
+        if (annotation == null) {
+            return new PsiAnnotationMemberValue[0];
+        }
+
         PsiArrayInitializerMemberValue value = (PsiArrayInitializerMemberValue) Objects.requireNonNull(annotation).findDeclaredAttributeValue("manual");
 
         if (value == null) {
@@ -163,6 +167,10 @@ public class PsiMethodUtils {
     }
 
     public static List<String> getMethodSections(PsiMethod psiMethod) {
+        if (psiMethod.getAnnotation(JIRA_STORY_ANNOTATION) == null) {
+            return Collections.emptyList();
+        }
+
         String storyName = PsiMethodUtils.getStoryName(psiMethod);
         String epicName = PsiMethodUtils.getEpicName(psiMethod);
 

@@ -12,7 +12,7 @@ public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1")
-    @CaseId(260869)
+    @CaseId(260881)
     public void userCanLoginWithValidCredentials() {
 //     open(Login.page)
 //         .enterUsername("demo")
@@ -24,10 +24,10 @@ public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1", manual = {
-            @Case(id = 260871, title = "Inputted password is masked by bullets"),
-            @Case(id = 260870, title = "Masked password can not be copied")
+            @Case(id = 260883, title = "Inputted password is masked by bullets"),
+            @Case(id = 260882, title = "Masked password can not be copied")
     })
-    @CaseId(260872)
+    @CaseId(260884)
     public void userCanNotLoginWithInValidCredentials() {
 //     open(Login.page)
 //         .enterUsername("demo")
@@ -39,9 +39,9 @@ public class TestLogin {
 
     @Test
     @Jira(id = "Jira-1", manual = {
-            @Case(id = 260873, title = "this is test")
+            @Case(id = 260885, title = "this is test")
     })
-    @CaseId(260874)
+    @CaseId(260886)
     public void userShouldSeeTimerAfter3WrongLoginAttempts() {
         fail("Expected: [BAD CREDENTIALS] \n Actual: [Wrong login]");
     }
