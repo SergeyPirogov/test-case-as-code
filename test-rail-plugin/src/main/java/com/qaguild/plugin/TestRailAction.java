@@ -41,9 +41,13 @@ public class TestRailAction extends AnAction {
 
         List<String> classSections = PsiMethodUtils.getClassSections(method.getContainingClass());
 
-        testRail.createSections(classSections);
-
         List<String> methodSections = PsiMethodUtils.getMethodSections(method);
+
+        if(classSections.isEmpty() || methodSections.isEmpty()) {
+            NotificationUtils.error("Can not find sections");
+        }
+
+        testRail.createSections(classSections);
 
         int sectionId = testRail.createSections(methodSections);
 
@@ -52,8 +56,6 @@ public class TestRailAction extends AnAction {
         testCases.forEach((annotation, testCase) -> {
             Integer id = testRail.saveTestCase(sectionId, testCase).getId();
             PsiMethodUtils.createCaseAnnotation(id, method, annotation);
-
-            NotificationUtils.notify(testCase.getTitle());
         });
 
         TestCase automatedCheck = testRail.createAutomatedCheck(sectionId, method);
