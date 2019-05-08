@@ -43,7 +43,7 @@ public class TestRailAction extends AnAction {
 
         List<String> methodSections = PsiMethodUtils.getMethodSections(method);
 
-        if(classSections.isEmpty() || methodSections.isEmpty()) {
+        if(classSections.isEmpty() && methodSections.isEmpty()) {
             NotificationUtils.error("Can not find sections");
         }
 
