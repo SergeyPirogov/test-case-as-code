@@ -37,6 +37,18 @@ public class TestRailApiWrapper {
         return parentSectionId;
     }
 
+    public int createStorySections(List<String> sections) {
+        int parentSectionId = -1;
+        for (int i = 0; i < sections.size(); i++) {
+            if (i == 0) {
+                parentSectionId = saveSection(settings.getProjectId(), settings.getSuiteId(), sections.get(0)).getId();
+            } else {
+                saveSection(settings.getProjectId(), settings.getSuiteId(), parentSectionId, sections.get(i)).getId();
+            }
+        }
+        return parentSectionId;
+    }
+
     private Section saveSection(int projectId, int suiteId, String name) {
         if (sectionExists(projectId, suiteId, name)) {
             return getSection(projectId, suiteId, name);
