@@ -47,6 +47,7 @@ public class TestRailAction extends AnAction {
             NotificationUtils.error("Can not find sections");
         }
 
+        //TODO fix bug with nested sections
         testRail.createSections(classSections);
 
         int sectionId = testRail.createSections(methodSections);
