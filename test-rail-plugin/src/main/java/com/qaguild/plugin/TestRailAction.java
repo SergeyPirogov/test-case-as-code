@@ -29,8 +29,9 @@ public class TestRailAction extends AnAction {
             PsiMethod[] methods = ((PsiClass) element).getAllMethods();
 
             for (PsiMethod method : methods) {
-                //TODO add check for test methods
-                generateCases(method);
+                if (method.getAnnotation(Annotations.JIRA_STORY_ANNOTATION) != null) {
+                    generateCases(method);
+                }
             }
         }
     }
