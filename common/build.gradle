@@ -10,3 +10,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
+
+dependencies {
+    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.11.0'
+}
