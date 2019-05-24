@@ -1,6 +1,7 @@
 package com.qaguild.annotations.trail;
 
 import io.qameta.allure.LabelAnnotation;
+import io.qameta.allure.LinkAnnotation;
 import io.qameta.allure.util.ResultsUtils;
 
 import java.lang.annotation.*;
@@ -9,6 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Repeatable(Jiras.class)
 @LabelAnnotation(name = ResultsUtils.STORY_LABEL_NAME)
+@LinkAnnotation
 public @interface Jira {
     String value();
     String title() default "";

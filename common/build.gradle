@@ -12,5 +12,5 @@ repositories {
 }
 
 dependencies {
-    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.11.0'
+    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.12.0'
 }
