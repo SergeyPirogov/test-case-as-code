@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@LinkAnnotation
+@LinkAnnotation(type = "tms")
 public @interface CaseId {
     int value();
 }
