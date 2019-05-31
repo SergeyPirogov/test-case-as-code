@@ -14,8 +14,6 @@ dependencies {
 }
 
 task syncTestRail(type:Test) {
-        systemProperty("project.name", "#1 Demo")
-        systemProperty("suite.name", "Demo suite")
         println("Starting to sync TestRail...")
         useTestNG(){
                 options {
@@ -33,10 +31,6 @@ task syncTestRail(type:Test) {
 }
 
 test {
-    systemProperty("project.name", "#1 Demo")
-    systemProperty("suite.name", "Demo suite")
-    systemProperties System.getProperties()
-
     useTestNG(){
         options {
              listeners << "com.qaguild.trail.TestRailTestRunListener"

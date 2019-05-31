@@ -2,7 +2,6 @@ package com.qaguild.trail;
 
 import com.codepine.api.testrail.TestRail;
 import com.codepine.api.testrail.model.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class TestRailClient {
     private TestRail testRail;
 
     public TestRailClient() {
-        this.testRail = TestRail.builder("https://qaguild.testrail.io/", "john@gmail.com", "123456").build();
+        this.testRail = TestRail.builder(Config.getTestRailEndpoint(), Config.getTestRailUsername(), Config.getTestRailPassword()).build();
     }
 
     public Project getProjectByName(String name) {

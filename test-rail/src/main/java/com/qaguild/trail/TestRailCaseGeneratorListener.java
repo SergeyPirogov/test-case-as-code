@@ -20,8 +20,8 @@ public class TestRailCaseGeneratorListener implements IMethodInterceptor {
 
     private TestRailClient testRail = new TestRailClient();
 
-    private int projectId = testRail.getProjectByName(System.getProperty("project.name", "")).getId();
-    private int suiteId = testRail.getSuite(projectId, System.getProperty("suite.name", "")).getId();
+    private int projectId = testRail.getProjectByName(Config.getTestRailProjectName()).getId();
+    private int suiteId = testRail.getSuite(projectId, Config.getTestRailSuiteName()).getId();
 
     @Override
     public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {
